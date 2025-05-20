@@ -57,3 +57,30 @@ Supports multiple web frameworks like **Gin**, **Echo**, and **Mux** out of the 
     │   ├── api
     │   └── db
     └── utils
+
+
+## 🧪 Supported Frameworks
+
+- [x] Gin
+- [x] Echo
+- [ ] Mux (planned)
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/bhupendra-dudhwal/go-flexkit.git
+cd go-flexkit
+go run cmd/http/server.go
+
+🧩 Extend With Your Own Adapter
+You can add support for other frameworks by implementing:
+
+A context adapter
+
+A handler constructor that satisfies ports.IHandlers
+
+Built with ❤️ to help Go developers start fast and clean.
+---
+
+Let me know if you'd like me to generate the repo boilerplate as a downloadable `.zip`, or if you're ready to publish and want a logo or badge support too.
+
