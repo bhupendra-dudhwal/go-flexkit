@@ -35,3 +35,7 @@ func (h *GinAdapter) Param(key string) string {
 func (h *GinAdapter) Query(key string) string {
 	return h.C.Query(key)
 }
+
+func (h *GinAdapter) GetContext(key string) (value any, exists bool) {
+	return h.C.Get(key)
+}

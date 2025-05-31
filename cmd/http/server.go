@@ -7,7 +7,7 @@ import (
 func main() {
 	builder.NewBuilder().
 		SetConfig().
-		SetAuthService().
+		SetServices().
 		SetHandler().
 		SetServer().
 		BuildAndStart()

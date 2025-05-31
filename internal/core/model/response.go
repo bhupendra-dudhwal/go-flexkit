@@ -1,11 +1,13 @@
 package model
 
 type Response struct {
-	Code    int    `json:"code"`
-	Status  bool   `json:"status"`
-	Payload any    `json:"payload,omitempty"`
-	Message string `json:"message"`
-	Error   *Error `json:"error,omitempty"`
+	RequestID string `json:"requestID"`
+	Message   string `json:"message"`
+	Code      int    `json:"code"`
+	Status    bool   `json:"status"`
+	Payload   any    `json:"payload,omitempty"`
+
+	Error *Error `json:"error,omitempty"`
 }
 
 type Error struct {

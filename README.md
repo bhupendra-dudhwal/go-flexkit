@@ -15,6 +15,7 @@ Supports multiple web frameworks like **Gin**, **Echo**, and **Mux** out of the 
 ## 📁 Project Structure
 
 ```
+.
 ├── cmd
 │   └── http
 │       └── server.go
@@ -22,41 +23,48 @@ Supports multiple web frameworks like **Gin**, **Echo**, and **Mux** out of the 
 │   └── config.yaml
 ├── go.mod
 ├── go.sum
-└── internal
-    ├── builder
-    │   └── builder.go
-    ├── core
-    │   ├── adapters
-    │   │   ├── echo.go
-    │   │   └── gin.go
-    │   ├── constants
-    │   │   ├── constnat.go
-    │   │   └── helper.go
-    │   ├── model
-    │   │   ├── config.go
-    │   │   └── response.go
-    │   ├── ports
-    │   │   ├── auth_service.go
-    │   │   ├── builder.go
-    │   │   ├── handler.go
-    │   │   └── health_service.go
-    │   ├── repository
-    │   └── service
-    │       ├── auth.go
-    │       └── health.go
-    ├── inbound
-    │   ├── handler
-    │   │   ├── echo
-    │   │   │   └── echo.go
-    │   │   ├── gin
-    │   │   │   └── gin.go
-    │   │   └── handler.go
-    │   ├── middleware
-    │   └── response
-    ├── outbound
-    │   ├── api
-    │   └── db
-    └── utils
+├── internal
+│   ├── builder
+│   │   └── builder.go
+│   ├── core
+│   │   ├── adapters
+│   │   │   ├── echo.go
+│   │   │   └── gin.go
+│   │   ├── constants
+│   │   │   ├── constnat.go
+│   │   │   └── helper.go
+│   │   ├── model
+│   │   │   ├── config.go
+│   │   │   └── response.go
+│   │   ├── ports
+│   │   │   ├── auth_service.go
+│   │   │   ├── builder.go
+│   │   │   ├── handler.go
+│   │   │   ├── health_service.go
+│   │   │   ├── inbound
+│   │   │   │   └── middleware.go
+│   │   │   └── outbound
+│   │   ├── repository
+│   │   └── service
+│   │       ├── auth.go
+│   │       ├── health.go
+│   │       └── helper.go
+│   ├── inbound
+│   │   ├── handler
+│   │   │   ├── echo_handler
+│   │   │   │   └── echo.go
+│   │   │   ├── gin_handler
+│   │   │   │   └── gin.go
+│   │   │   └── handler.go
+│   │   └── middleware
+│   │       ├── echo.go
+│   │       ├── gin.go
+│   │       └── helper.go
+│   ├── outbound
+│   │   ├── api
+│   │   └── db
+│   └── utils
+└── README.md
 ```
 
 ## 🧪 Supported Frameworks

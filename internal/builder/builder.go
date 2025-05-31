@@ -16,11 +16,11 @@ import (
 	"github.com/bhupendra-dudhwal/go-flexkit/internal/core/ports"
 	"github.com/bhupendra-dudhwal/go-flexkit/internal/core/service"
 	"github.com/bhupendra-dudhwal/go-flexkit/internal/inbound/handler"
-	"github.com/bhupendra-dudhwal/go-flexkit/internal/inbound/handler/echo"
-	"github.com/bhupendra-dudhwal/go-flexkit/internal/inbound/handler/gin"
+	echohandler "github.com/bhupendra-dudhwal/go-flexkit/internal/inbound/handler/echo_handler"
+	ginhandler "github.com/bhupendra-dudhwal/go-flexkit/internal/inbound/handler/gin_handler"
 
-	ginEngine "github.com/gin-gonic/gin"
-	echov4 "github.com/labstack/echo/v4"
+	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 
 	"gopkg.in/yaml.v3"
 )
@@ -55,7 +55,8 @@ func (b *builder) SetConfig() ports.IBuilder {
 	return b
 }
 
-func (b *builder) SetAuthService() ports.IBuilder {
+func (b *builder) SetServices() ports.IBuilder {
+	// Auth Service
 	b.authService = service.NewAuth()
 	b.healthService = service.NewHealthService()
 	return b
@@ -65,9 +66,9 @@ func (b *builder) SetHandler() ports.IBuilder {
 
 	switch b.config.Handler.Handler {
 	case constants.GIN:
-		b.handlerPorts, b.server.Handler = handler.NewHandler[*ginEngine.Engine](gin.NewGin)
+		b.handlerPorts, b.server.Handler = handler.NewHandler[*gin.Engine](ginhandler.NewGin)
 	case constants.ECHO:
-		b.handlerPorts, b.server.Handler = handler.NewHandler[*echov4.Echo](echo.NewEcho)
+		b.handlerPorts, b.server.Handler = handler.NewHandler[*echo.Echo](echohandler.NewEcho)
 	default:
 		log.Fatalf("%s handler framework do not support", b.config.Handler.Handler)
 	}

@@ -15,16 +15,18 @@ func NewHealthService() ports.IHealth {
 
 func (h *heathService) Liveness(ctx ports.IHandlerContext) {
 	ctx.XML(http.StatusOK, model.Response{
-		Code:    http.StatusOK,
-		Status:  true,
-		Message: "App is live",
+		RequestID: getRequestID(ctx),
+		Code:      http.StatusOK,
+		Status:    true,
+		Message:   "App is live",
 	})
 }
 
 func (h *heathService) Readiness(ctx ports.IHandlerContext) {
 	ctx.JSON(http.StatusOK, model.Response{
-		Code:    http.StatusOK,
-		Status:  true,
-		Message: "App is ready to serve the request",
+		RequestID: getRequestID(ctx),
+		Code:      http.StatusOK,
+		Status:    true,
+		Message:   "App is ready to serve the request",
 	})
 }

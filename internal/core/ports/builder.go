@@ -2,7 +2,7 @@ package ports
 
 type IBuilder interface {
 	SetConfig() IBuilder
-	SetAuthService() IBuilder
+	SetServices() IBuilder
 	SetHandler() IBuilder
 	SetServer() IBuilder
 	BuildAndStart()

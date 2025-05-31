@@ -1,11 +1,11 @@
 package adapters
 
 import (
-	echov4 "github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4"
 )
 
 type EchoAdapter struct {
-	C echov4.Context
+	C echo.Context
 }
 
 func (h *EchoAdapter) Bind(obj any) error {
@@ -38,4 +38,9 @@ func (h *EchoAdapter) Query(key string) string {
 
 func (h *EchoAdapter) QueryParam(key string) string {
 	return h.Query(key)
+}
+
+func (h *EchoAdapter) GetContext(key string) (value any, exists bool) {
+	val := h.C.Get(key)
+	return val, (val != nil)
 }

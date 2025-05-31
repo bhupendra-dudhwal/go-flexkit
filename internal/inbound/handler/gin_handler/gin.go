@@ -1,19 +1,25 @@
-package gin
+package ginhandler
 
 import (
 	"github.com/bhupendra-dudhwal/go-flexkit/internal/core/adapters"
 	"github.com/bhupendra-dudhwal/go-flexkit/internal/core/ports"
-
-	ginEngine "github.com/gin-gonic/gin"
+	"github.com/bhupendra-dudhwal/go-flexkit/internal/inbound/middleware"
+	"github.com/gin-gonic/gin"
 )
 
 type ginHandler struct {
-	engine *ginEngine.Engine
+	engine     *gin.Engine
+	middleware *middleware.GinMiddleware
 }
 
-func NewGin() (ports.IHandlers, *ginEngine.Engine) {
-	g := ginEngine.New()
-	return &ginHandler{engine: g}, g
+func NewGin() (ports.IHandlers, *gin.Engine) {
+	middleware := middleware.NewGinMiddleware() // Get gin middleware
+	g := gin.New()
+	g.Use(middleware.AddRequestID()) // Global middleware that will be used for all requests
+	return &ginHandler{
+		engine:     g,
+		middleware: middleware,
+	}, g
 }
 
 func (g *ginHandler) SetHealthHandler(healthService ports.IHealth) {
@@ -21,12 +27,12 @@ func (g *ginHandler) SetHealthHandler(healthService ports.IHealth) {
 	{
 		healthV1Group := v1Group.Group("/healthz")
 		{
-			healthV1Group.GET("/liveness", func(ctx *ginEngine.Context) {
+			healthV1Group.GET("/liveness", func(ctx *gin.Context) {
 				handlerContext := adapters.GinAdapter{C: ctx}
 				healthService.Liveness(&handlerContext)
 			})
 
-			healthV1Group.GET("/readiness", func(ctc *ginEngine.Context) {
+			healthV1Group.GET("/readiness", func(ctc *gin.Context) {
 				handlerContext := adapters.GinAdapter{C: ctc}
 				healthService.Readiness(&handlerContext)
 			})
@@ -39,7 +45,7 @@ func (g *ginHandler) SetAuthHandler(authService ports.IAuth) {
 	{
 		authV1Group := v1Group.Group("/auth")
 		{
-			authV1Group.POST("", func(ctx *ginEngine.Context) {
+			authV1Group.POST("", func(ctx *gin.Context) {
 				handlerContext := adapters.GinAdapter{C: ctx}
 				authService.Signin(&handlerContext)
 			})
